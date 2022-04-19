@@ -1,0 +1,295 @@
+﻿@*@using Microsoft.AspNetCore.Http;*@
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_AdminLayout";
+}
+
+
+<div>
+
+    <div class="d-flex justify-content-lg-start mb-5">
+        <h1>Data Employee</h1>
+    </div>
+    
+</div>
+
+<table class="table table-hover table table-striped table-employee">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">NIK</th>
+      <th scope="col">Full Name</th>
+      <th scope="col">BirthDate</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone Number</th>
+      <th scope="col">Salary</th>     
+      <th scope="col">Action</th>     
+
+    </tr>
+  </thead>
+  <tbody id="tableSW">
+
+  </tbody>
+</table>
+
+<!--Modal: modalRegistrasi-->
+<div id="modalRelatedContent" class="modal fade bd-example-modal-lg"  tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
+  <div class="modal-dialog modal-lg modal-side modal-bottom-right modal-notify modal-info modal-dialog-centered" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <p class="heading">Employee Register</p>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+          <form onsubmit="register()">
+                <div class="form-row">
+                    <div class="col-md-3 mb-3">
+                        <label for="firstname">First name</label>
+                        <input type="text" class="form-control" id="firstName" value="" required>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="lastname">Last name</label>
+                        <input type="text" class="form-control" id="lastName" value="" required>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="BirthDate">Birth Date</label>
+                        <input type="date" class="form-control" id="birthDate" value="" required>
+
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="email">Email</label>
+                        <input type="text" class="form-control" id="email" required>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="gender">Gender</label>
+                        <select class="custom-select" id="gender" required>
+                        <option selected disabled value="">Choose...</option>
+                        <option value="0">Laki - laki</option>
+                        <option value="1">Perempuan</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="PhoneNumber">Phone Number</label>
+                        <input type="number" class="form-control" id="phoneNumber" required>
+                    </div>
+                </div>
+                
+                 <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="Password">Password</label>
+                        <input type="text" class="form-control" id="password" value="" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="ConfirmPassword">Confirm Password</label>
+                        <input type="text" class="form-control" id="confirmPass" value="" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-3 mb-3">
+                        <label for="Salary">Salary</label>
+                        <input type="number" class="form-control" id="salary" value="" required>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="University">University</label>
+                        <select class="custom-select" id="university" required>
+                        <option selected disabled value="">Choose...</option>
+                        
+                        </select>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="Degree">Degree</label>
+                        <select class="custom-select" id="degree" required>
+                        <option selected disabled value="">Choose...</option>
+                        <option >Sarjana1</option>
+                        <option >SMA</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="GPA">GPA</label>
+                        <input type="number" class="form-control" id="gpa" value="" required>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+                        <label class="form-check-label" for="invalidCheck2">
+                        Agree to terms and conditions
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-primary" type="submit">Register Now</button>
+          </form>
+           
+        </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!--Modal: modalRegistrasi-->
+
+
+
+<!-- Modal Delete-->
+@*<div class="modal fade" id="deleteEmployee" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Employee By NIK</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+                <div class="row">
+                    <div class="col-6"><p>Delete Employee by NIk : </p></div>
+                    <div class="col-6"><p class="deletebynik">ini niknya</p></div>
+                </div>
+                
+                
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="Hapus()" data-dismiss="modal">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>*@
+
+
+<!--Modal: modalUpdate-->
+<div id="modalUpdate" class="modal fade bd-example-modal-lg"  tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
+  <div class="modal-dialog modal-lg modal-side modal-bottom-right modal-notify modal-info modal-dialog-centered" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <p class="heading">Employee Update</p>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+          <form onsubmit="Update()">
+                    <div class="form-row mb-3">
+                        <div class="col-md-12 mb-0">
+                            <p class="font-weight-bold d-inline">NIK :</p>
+                            <p class="empNIK font-weight-bold d-inline"></p>
+                        </div>
+                        
+                        
+                    </div>
+                <div class="form-row">
+                    <div class="col-md-3 mb-3">
+                        <label for="firstname">First name</label>
+                        <input type="text" class="form-control" id="firstName" value="" required>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="lastname">Last name</label>
+                        <input type="text" class="form-control" id="lastName" value="" required>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label for="BirthDate">Birth Date</label>
+                        <input type="date" class="form-control" id="birthDate" value="" required>
+
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="Salary">Salary</label>
+                        <input type="number" class="form-control" id="salary" value="" required>
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <label for="email">Email</label>
+                        <input type="text" class="form-control" id="email" required>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="gender">Gender</label>
+                        <select class="custom-select" id="gender" required>
+                        <option selected disabled value="">Choose...</option>
+                        <option value="0">Laki - laki</option>
+                        <option value="1">Perempuan</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="PhoneNumber">Phone Number</label>
+                        <input type="number" class="form-control" id="phoneNumber" required>
+                    </div>
+                </div>
+                
+                
+
+
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+                        <label class="form-check-label" for="invalidCheck2">
+                        Agree to terms and conditions
+                        </label>
+                    </div>
+                </div>
+                <button class="btn btn-primary" type="submit">Update Now</button>
+          </form>
+           
+        </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!--Modal: modalUpdate-->
+
+
+<div class="row mt-3  " style="height:300px;">
+    <div class="col-sm-6 d-inline-block">
+        <div class="card shadow mb-4 " style="height:90%">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Gender</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div id="chart"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-sm-6 d-inline-block">
+        <div class="card shadow mb-4" style="height:90%">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">University</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div id="chart2"></div>
+            </div>
+        </div>
+    </div>
+
+    
+
+</div>
+
+
